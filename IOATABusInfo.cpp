@@ -46,8 +46,7 @@
 
 #define super OSObject
 
-OSDefineMetaClassAndStructors(   IOATABusInfo, OSObject )
-
+OSDefineMetaClassAndStructors(IOATABusInfo, OSObject )
 OSMetaClassDefineReservedUnused(IOATABusInfo, 0);
 OSMetaClassDefineReservedUnused(IOATABusInfo, 1);
 OSMetaClassDefineReservedUnused(IOATABusInfo, 2);
@@ -78,17 +77,12 @@ OSMetaClassDefineReservedUnused(IOATABusInfo, 20);
 IOATABusInfo*
 IOATABusInfo::atabusinfo(void)
 {
-	IOATABusInfo* info = new IOATABusInfo;
-	
+	IOATABusInfo* info = new IOATABusInfo;	
 	if( ! info )
 		return 0L;
-
 	if( !info->init() )
-		return 0L;
-		
+		return 0L;		
 	return info;
-
-
 }
 
 
@@ -100,14 +94,10 @@ IOATABusInfo::atabusinfo(void)
 bool 
 IOATABusInfo::init()
 {
-
 	if( ! super::init() )
 		return false;
-
 	zeroData();	
-	
 	return true;
-
 }
 
 /*-----------------------------------------------------------------------------
@@ -117,7 +107,6 @@ IOATABusInfo::init()
 void
 IOATABusInfo::zeroData(void)
 {
-
 	_PIOModes		= 0x00;
 	_MultiDMAModes	= 0x00;
 	_UltraDMAModes	= 0x00;
@@ -126,11 +115,7 @@ IOATABusInfo::zeroData(void)
 	_DMAQueued		= false;
 	_SocketType		= kUnknownSocket;
 	_maxBlocksExtended = 256;
-
 }
-
-
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -140,14 +125,8 @@ IOATABusInfo::zeroData(void)
 UInt8 
 IOATABusInfo::getPIOModes( void )
 {
-
 	return	_PIOModes;
-
 }
-
-
-
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -157,15 +136,8 @@ IOATABusInfo::getPIOModes( void )
 UInt8 
 IOATABusInfo::getDMAModes( void )
 {
-
-
 	return	_MultiDMAModes;
-
 }
-
-
-
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -175,16 +147,8 @@ IOATABusInfo::getDMAModes( void )
 UInt8 
 IOATABusInfo::getUltraModes( void )
 {
-
 	return	_UltraDMAModes;
-
-
 }
-
-
-
-
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -194,18 +158,10 @@ IOATABusInfo::getUltraModes( void )
 bool 
 IOATABusInfo::supportsDMA( void )
 {
-
 	if( (_MultiDMAModes != 0x00) || (_UltraDMAModes != 0x00) )
-		return true;
-		
+		return true;	
 	return false;
-
-
 }
-
-
-   
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -215,15 +171,8 @@ IOATABusInfo::supportsDMA( void )
 bool 
 IOATABusInfo::supportsExtendedLBA( void )
 {
-
 	return	_ExtendedLBA;
-
-
 }
-
-
-  
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -233,15 +182,8 @@ IOATABusInfo::supportsExtendedLBA( void )
 bool 
 IOATABusInfo::supportsOverlapped( void )
 {
-
 	return	_Overlapped;
-
-
 }
-
-
-   
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -251,15 +193,8 @@ IOATABusInfo::supportsOverlapped( void )
 bool 
 IOATABusInfo::supportsDMAQueued( void )
 {
-
-
 	return	_DMAQueued;
-
 }
-
-
-   
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -269,17 +204,8 @@ IOATABusInfo::supportsDMAQueued( void )
 ataSocketType 
 IOATABusInfo::getSocketType( void )
 {
-
 	return	_SocketType;
-
-
 }
-
-
- 
-
-
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -289,15 +215,8 @@ IOATABusInfo::getSocketType( void )
 void 
 IOATABusInfo::setPIOModes( UInt8 inModeBitMap)
 {
-
 	_PIOModes = inModeBitMap;
-
-
 }
-
-
-
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -307,15 +226,8 @@ IOATABusInfo::setPIOModes( UInt8 inModeBitMap)
 void 
 IOATABusInfo::setDMAModes( UInt8 inModeBitMap )
 {
-
-
 	_MultiDMAModes = inModeBitMap;
-
 }
-
-
-
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -325,16 +237,8 @@ IOATABusInfo::setDMAModes( UInt8 inModeBitMap )
 void 
 IOATABusInfo::setUltraModes( UInt8 inModeBitMap )
 {
-
-
 	_UltraDMAModes = inModeBitMap;
-
 }
-
-
-
-
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -344,15 +248,8 @@ IOATABusInfo::setUltraModes( UInt8 inModeBitMap )
 void 
 IOATABusInfo::setExtendedLBA( bool inState )
 {
-
-
 	_ExtendedLBA = inState;
-
 }
-
-
-  
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -362,15 +259,8 @@ IOATABusInfo::setExtendedLBA( bool inState )
 void 
 IOATABusInfo::setOverlapped( bool inState )
 {
-
-
 	_Overlapped = inState;
-
 }
-
-
-   
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -380,15 +270,8 @@ IOATABusInfo::setOverlapped( bool inState )
 void 
 IOATABusInfo::setDMAQueued( bool inState )
 {
-
-
 	_DMAQueued = inState;
-
 }
-
-
-    
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -398,15 +281,8 @@ IOATABusInfo::setDMAQueued( bool inState )
 void 
 IOATABusInfo::setSocketType( ataSocketType inSocketType )
 {
-
 	_SocketType = inSocketType;
-
-
 }
-
-
- 
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -416,11 +292,8 @@ IOATABusInfo::setSocketType( ataSocketType inSocketType )
 UInt8 
 IOATABusInfo::getUnits( void )
 {
-	
 	return _numUnits;
-
 }
-
 
 /*-----------------------------------------------------------------------------
  *
@@ -430,10 +303,7 @@ IOATABusInfo::getUnits( void )
 void 
 IOATABusInfo::setUnits( UInt8 inNumUnits )
 {
-
 	_numUnits = inNumUnits;
-
-
 }
 
 
@@ -441,13 +311,10 @@ void
 IOATABusInfo::setMaxBlocksExtended( UInt16 inMaxBlocks)
 {
 	_maxBlocksExtended = inMaxBlocks;
-
 }
 
 UInt16 
 IOATABusInfo::maxBlocksExtended(void)
 {
-
 	return _maxBlocksExtended;
-
 }
