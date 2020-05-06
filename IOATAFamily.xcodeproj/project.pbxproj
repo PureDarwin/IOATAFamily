@@ -95,7 +95,7 @@
 		019C1A36FFDDABCE7F000001 /* IOATAController.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IOATAController.cpp; sourceTree = SOURCE_ROOT; };
 		019C1A37FFDDABCE7F000001 /* IOATADevConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IOATADevConfig.cpp; sourceTree = SOURCE_ROOT; };
 		019C1A38FFDDABCE7F000001 /* IOATADevice.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IOATADevice.cpp; sourceTree = SOURCE_ROOT; };
-		52C1FFB70DAD2D87006889B7 /* Info-IOATAFamily.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-IOATAFamily.plist"; sourceTree = "<group>"; };
+		52C1FFB70DAD2D87006889B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52C1FFB80DAD2D87006889B7 /* IOATAFamily.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOATAFamily.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91829CD0197498808CA29FD /* IOATARegI386.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IOATARegI386.cpp; sourceTree = "<group>"; };
 		B9D54E10019702DB08CA29FD /* IOATARegI386.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = IOATARegI386.h; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 			children = (
 				019C1A25FFDDABCE7F000001 /* Drivers */,
 				247142CAFF3F8F9811CA285C /* Family */,
-				52C1FFB70DAD2D87006889B7 /* Info-IOATAFamily.plist */,
+				1FC0F30F2462449C00194F1A /* Support Files */,
 				19C28FB6FE9D52B211CA2CBB /* Products */,
 			);
 			name = IOATAFamily;
@@ -139,6 +139,14 @@
 				52C1FFB80DAD2D87006889B7 /* IOATAFamily.kext */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1FC0F30F2462449C00194F1A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				52C1FFB70DAD2D87006889B7 /* Info.plist */,
+			);
+			name = "Support Files";
 			sourceTree = "<group>";
 		};
 		247142CAFF3F8F9811CA285C /* Family */ = {
