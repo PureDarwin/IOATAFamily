@@ -48,10 +48,10 @@
 #undef DLOG
 #endif
 
-#define ATA_DEBUG 1
+//#define ATA_DEBUG 1
 
-#if 1
-#define DLOG(fmt, args...)  kprintf(fmt, ## args)
+#ifdef  ATA_DEBUG
+#define DLOG(fmt, args...)  IOLog(fmt, ## args)
 #else
 #define DLOG(fmt, args...)
 #endif
@@ -235,7 +235,7 @@ IOPCIATA::allocDMAChannel(void)
     
     if ( !_prdBuffer )
     {
-        kprintf("%s: PRD buffer allocation failed\n", getName());
+        IOLog("%s: PRD buffer allocation failed\n", getName());
         return false;
     }
  	
@@ -313,7 +313,7 @@ IOPCIATA::freeDMAChannel(void)
 IOReturn
 IOPCIATA::startDMA( void )
 {
-    kprintf("IOPCIATA::startDMA()\n");
+
 	IOReturn err = kATANoErr;
 
 	// first make sure the engine is stopped.
@@ -444,7 +444,7 @@ IOPCIATA::activateDMAEngine(void)
 	OSSynchronizeIO();
 
 
-	DLOG("IOPCIATA: bmStaus is %X\n", (UInt8) *_bmStatusReg);
+	DLOG("IOPCIATA: bmStaus is %X\n", *_bmStatusReg);
 	
 
 }
@@ -511,7 +511,7 @@ IOPCIATA::createChannelCommands(void)
 	IOMemoryCursor::PhysicalSegment physSegment;
 	UInt32 index = 0;
 	UInt8		*xferDataPtr, *ptr2EndData, *next64KBlock, *starting64KBlock;
-	UInt64		xferCount, count2Next64KBlock;
+	UInt32		xferCount, count2Next64KBlock;
 	
 	if( ! descriptor )
 	{
@@ -539,12 +539,12 @@ IOPCIATA::createChannelCommands(void)
 					       					xfrPosition,
 					       					&physSegment,
 					     					1,
-					     					(uint32_t) bytesRemaining,  // limit to the requested number of bytes in the event the descriptors is larger
+					     					bytesRemaining,  // limit to the requested number of bytes in the event the descriptors is larger
 					       					&transferSize) )
 		{
 				       					
 			xferDataPtr = (UInt8*) physSegment.location;
-			xferCount = (uint32_t) physSegment.length;
+			xferCount = physSegment.length;
 			
 			// update the bytes remaining after this pass
 			bytesRemaining -= xferCount;
@@ -623,7 +623,7 @@ IOPCIATA::createChannelCommands(void)
 IOReturn
 IOPCIATA::handleDeviceInterrupt(void)
 {
-    kprintf("IOPCIATA::handleDeviceInterrupt()\n");
+
 
 	if( _dmaState == kATADMAStatus )
 	{

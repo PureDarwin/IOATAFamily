@@ -54,8 +54,8 @@ struct completionInfo{
 #undef DLOG
 #endif
 
-#if 1
-#define DLOG(fmt, args...)  kprintf(fmt, ## args)
+#ifdef  ATA_DEBUG
+#define DLOG(fmt, args...)  IOLog(fmt, ## args)
 #else
 #define DLOG(fmt, args...)
 #endif
@@ -101,16 +101,13 @@ ATADeviceNub::ataDeviceNub( IOATAController* provider, ataUnitID unit, ataDevice
 
 	ATADeviceNub*  nub = new ATADeviceNub;
 
-    if( ! nub ) {
-        kprintf("Failed to allocate ATADeviceNub\n");
-        return 0L;
-    }
+	if( ! nub )
+		return 0L;
 	
 	if( !nub->init( provider, unit, devType) )
 	{
-        kprintf("Failed to initialize ATADeviceNub %p %d %d\n", provider, unit, devType);
-        nub->release();
-		return 0L;
+			nub->release();
+			return 0L;
 	}	
 	return nub;
 
@@ -123,10 +120,8 @@ bool
 ATADeviceNub::init(IOATAController* provider, ataUnitID unit, ataDeviceType devType)
 {
 
-    if( !super::init( (OSDictionary*) 0L) ) {
-        kprintf("%s::%s( %p, %d, %d ): super failed to init\n", getName(), __FUNCTION__, provider, unit, devType);
-        return false;
-    }
+	if( !super::init( (OSDictionary*) 0L) )
+		return false;
 
 	_provider = provider;
 	_unitNumber = unit;
@@ -135,10 +130,8 @@ ATADeviceNub::init(IOATAController* provider, ataUnitID unit, ataDeviceType devT
 	// allocate a buffer for the identify info from the device	
 	buffer = (UInt8*) IOMalloc( kIDBufferBytes );
 	
-    if( !buffer ) {
-        kprintf("%s::%s( %p, %d, %d ): failed to alloc %d bytes\n", getName(), __FUNCTION__, provider, unit, devType, kIDBufferBytes);
+	if( !buffer )
 		return false;
-    }
 	
 	IOReturn err = kATANoErr;
 	
@@ -147,7 +140,7 @@ ATADeviceNub::init(IOATAController* provider, ataUnitID unit, ataDeviceType devT
 
 	if( err )
 	{
-		kprintf("ATADeviceNub failed identify device %ld\n", (long int) err);
+		DLOG("ATADeviceNub failed identify device %ld\n", (long int) err);
 
 		IOFree( buffer, kIDBufferBytes);	
 		return false;	
@@ -287,7 +280,7 @@ ATADeviceNub::getDeviceID( void )
 	
 	if(!cmd)
 	{
-        DLOG("Failed to allocate IOATABusCommand!\n");
+		
  		string = OSString::withCString( "failed" );
 		setProperty( "Alloc command", (OSObject *)string );
 	 	string->release();
@@ -339,8 +332,7 @@ ATADeviceNub::getDeviceID( void )
 	DLOG("Sending ID command to bus controller\n");	
 	IOReturn err =	executeCommand( cmd);	
 	DLOG("Command returned error = %ld\n",(long int)err );
-	
-    if( err == 0 )
+	if(!err)
 	{
 		completion->sync->wait();
 	}
@@ -370,11 +362,6 @@ ATADeviceNub::getDeviceID( void )
     swapBytes16( &buffer[20], 20);  // Serial number
 #endif
 
-    for ( int i = 0; i < 512; i++ ) {
-        kprintf("%02x ", buffer[i]);
-    }
-    kprintf("\n");
-    
 	return err;
 	
 	// the 512 byte buffer should contain the correctly byte-ordered
@@ -594,11 +581,11 @@ ATADeviceNub::publishVendorProperties(void)
 void
 ATADeviceNub::MyATACallback(IOATACommand* command )
 {
-    DLOG("ATADeviceNub::MyATACallback( %p )\n", command);
-
-    if( command->getResult() )
+	if( command->getResult() )
 	{
+	
 		DLOG("Command result error = %ld\n",(long int)command->getResult() );
+	
 	}
 
 
@@ -617,7 +604,6 @@ ATADeviceNub::MyATACallback(IOATACommand* command )
 void
 ATADeviceNub::processCallback(IOATACommand* command )
 {
-    DLOG("ATADeviceNub::processCallback( %p )\n", command);
 	completionInfo* completer = (completionInfo*) command->refCon;
 
 	switch( completer->whatToDo )

@@ -26,14 +26,14 @@
  *
  */
 
-//const int configword 		= 00;
+const int configword 		= 00;
 const int pioModeNumber 	= 51;
 const int fieldValidity 	= 53;
 const int mwDMAWord 		= 63;
 const int pioAdvancedMode 	= 64;
 const int minimumDMATime 	= 65;
 const int recommendDMATime 	= 66;
-//const int pioCycleNoFlow 	= 67;
+const int pioCycleNoFlow 	= 67;
 const int pioCycleIORDY 	= 68;
 const int ultraDMAWord 		= 88;
  
@@ -47,8 +47,8 @@ const int ultraDMAWord 		= 88;
 #undef DLOG
 #endif
 
-#if 1
-#define DLOG(fmt, args...)  kprintf(fmt, ## args)
+#ifdef  ATA_DEBUG
+#define DLOG(fmt, args...)  IOLog(fmt, ## args)
 #else
 #define DLOG(fmt, args...)
 #endif

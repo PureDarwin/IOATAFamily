@@ -76,7 +76,7 @@ class ATATimerEventSource : public IOTimerEventSource
 	/*!@function wakeAtTime
 	@abstract overrides in order to set/clear the timed out flag
 	*/
-	virtual IOReturn wakeAtTime(uint64_t abstime);
+	virtual IOReturn wakeAtTime(UnsignedWide abstime);
 
 	/*!@function cancelTimeout
 	@abstract overrides in order to set/clear the timed out flag

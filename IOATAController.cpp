@@ -61,8 +61,8 @@
 
 //#define  ATA_DEBUG 1
 
-#if 1
-#define DLOG(fmt, args...)  kprintf(fmt, ## args)
+#ifdef  ATA_DEBUG
+#define DLOG(fmt, args...)  IOLog(fmt, ## args)
 #else
 #define DLOG(fmt, args...)
 #endif
@@ -335,7 +335,7 @@ IOATAController::allocateDoubleBuffer( void )
 	
     if ( !_doubleBufferDesc )
     {
-        kprintf("%s: double buffer allocation failed\n", getName());
+        IOLog("%s: double buffer allocation failed\n", getName());
         return false;
     }
 	
@@ -694,9 +694,6 @@ IOATAController::dispatchNext( void )
 		_currentCommand->setOpcode(kATAFnBusReset);
 	}
 
-    
-    kprintf("IOATAController::dispatchNext opcode: %x\n", _currentCommand->getOpcode());
-    
 
 	switch(	_currentCommand->getOpcode() )
 	{
@@ -704,7 +701,7 @@ IOATAController::dispatchNext( void )
 	
 		case kATAFnExecIO:			/* Execute ATA I/O */
 		case kATAPIFnExecIO:		/* ATAPI I/O */
-    		result = handleExecIO();
+			result = handleExecIO();			
 		break;
 
 		case kATAFnRegAccess:		/* Register Access */
@@ -931,8 +928,6 @@ IOATAController::handleTimeout( void )
 			stopDMA();
 		
 		}
-        
-        DLOG("IOATAController::HandleTimeout got a timeout error");
 		
 		_currentCommand->setResult( kATATimeoutErr );
 		_currentCommand->state = IOATAController::kATAComplete;
@@ -972,8 +967,6 @@ IOATAController::handleDeviceInterrupt(void)
 	// read the actual status register to clear the interrupt.
 	status = *_tfStatusCmdReg;
 	OSSynchronizeIO();
-    
-    DLOG("IOATA Device Int handled");
 	
 	return asyncIO();
 	
@@ -998,10 +991,10 @@ IOATAController::handleExecIO( void )
 	err = selectDevice( _currentCommand->getUnit() );
 	if( err )
 	{	
-		kprintf("IOATAController device blocking bus.\n");
+		IOLog("IOATAController device blocking bus.\n");
 		_currentCommand->state = IOATAController::kATAComplete;
 
-		if( 1 ) // _currentCommand->getFlags() & mATAFlagUseNoIRQ )
+		if( _currentCommand->getFlags() & mATAFlagUseNoIRQ )
 		{
 			completeIO( kIOReturnOffline );	
 			return kIOReturnOffline;	
@@ -1018,12 +1011,10 @@ IOATAController::handleExecIO( void )
 	// go to asyncIO and start the state machine.
 	// indicate the command has been issued
 	_currentCommand->state = IOATAController::kATAStarted;		
-	if( 1 ) // _currentCommand->getFlags() & mATAFlagUseNoIRQ )
+	if( _currentCommand->getFlags() & mATAFlagUseNoIRQ )
 	{
-        kprintf("IOATAController::handleExecIO: doing synchronous IO\n");
-        err = synchronousIO();
+		err = synchronousIO();
 	} else {
-        kprintf("IOATAController::handleExecIO: doing asynchronous IO\n");
 		err = asyncIO();
 	}
 		
@@ -1472,13 +1463,11 @@ IOATAController::asyncCommand(void)
 	// if DMA, program and activate the DMA channel
 	if( (_currentCommand->getFlags() & mATAFlagUseDMA ) == mATAFlagUseDMA )
 	{
-        DLOG("IOATAController::asyncCommand starting DMA channel\n");
 		err = startDMA();	
 	}
 
 	if( err )
 	{
-        DLOG("IOATAController::asyncCommand Failed to do DMA\n");
 		stopDMA();
 		return err;
 	}
@@ -1852,7 +1841,6 @@ IOATAController::issueCommand( void )
 
 	if( _currentCommand->getFlags() & mATAFlag48BitLBA )
 	{
-        kprintf("IOATAController::issueCommand Using 48bit LBA\n");
 		IOExtendedLBA* extLBA = _currentCommand->getExtendedLBA();
 		*_tfSDHReg = extLBA->getDevice();
 		OSSynchronizeIO();
@@ -1876,7 +1864,7 @@ IOATAController::issueCommand( void )
 
 	
 	} else {
-        kprintf("IOATAController::issueCommand using standard LBA\n");
+	
 		ataTaskFile* tfRegs = _currentCommand->getTaskFilePtr();
 	
 		OSSynchronizeIO();
@@ -1895,8 +1883,6 @@ IOATAController::issueCommand( void )
 	
 		*_tfStatusCmdReg =  tfRegs->ataTFCommand;
 	}
-    
-    kprintf("IOATAController::issueCommand done\n");
 
 	return kATANoErr;
 }
@@ -2300,10 +2286,8 @@ IOATAController::scanForDrives( void )
 	}
 
 	// spun on BSY for too long, declare bus empty
-    if( ! (milsSpent < 3100) ) {
-        DLOG("IOATA spun on BSY for too long");
-        goto AllDone;
-    }
+	if( ! (milsSpent < 3100) )
+		goto AllDone;
 		
 	
 	// select each possible device on the bus, wait for BSY- 
@@ -2332,10 +2316,8 @@ IOATAController::scanForDrives( void )
 		}
 
 		// spun on BSY too long, probably bad device
-        if( ! (milsSpent < 3100) ) {
-            DLOG("IOATA spun on BSY too long, probably bad device");
+		if( ! (milsSpent < 3100) )
 			goto AllDone;
-        }
 
 		// check for ATAPI device signature first
 		if ( ( *_tfCylLoReg == 0x14) && ( *_tfCylHiReg == 0xEB) )
@@ -2377,8 +2359,6 @@ IOATAController::scanForDrives( void )
 		}
 
 	}
-    
-    DLOG("IOATAController::scanForDrivces(): success\n");
 
 
 AllDone:

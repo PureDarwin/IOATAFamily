@@ -34,8 +34,8 @@
 #undef DLOG
 #endif
 
-#if 1
-#define DLOG(fmt, args...)  kprintf(fmt, ## args)
+#ifdef  ATA_DEBUG
+#define DLOG(fmt, args...)  IOLog(fmt, ## args)
 #else
 #define DLOG(fmt, args...)
 #endif
