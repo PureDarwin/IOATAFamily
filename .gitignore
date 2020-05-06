@@ -2,4 +2,5 @@
 *.xcuserdatad
 *.xccheckout
 
+darwinbuild.xcconfig
 LocalHeaders/
