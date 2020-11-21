@@ -29,7 +29,7 @@
 #include <IOKit/IOService.h>
 #include <IOKit/IOWorkLoop.h>
 #include <IOKit/IOTimerEventSource.h>
-#include <IOKit/ndrvsupport/IOMacOSTypes.h>
+#include "IOMacOSTypes.h"
 
 
 /*!

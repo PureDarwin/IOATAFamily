@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F6484502568AAF700C27C5D /* IOMacOSTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F64844F2568AAF700C27C5D /* IOMacOSTypes.h */; };
 		52C1FF890DAD2D87006889B7 /* IOATABusCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 019C1A2BFFDDABCE7F000001 /* IOATABusCommand.h */; settings = {ATTRIBUTES = (); }; };
 		52C1FF8A0DAD2D87006889B7 /* IOATABusInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 019C1A2CFFDDABCE7F000001 /* IOATABusInfo.h */; settings = {ATTRIBUTES = (); }; };
 		52C1FF8B0DAD2D87006889B7 /* IOATACommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 019C1A2DFFDDABCE7F000001 /* IOATACommand.h */; settings = {ATTRIBUTES = (); }; };
@@ -96,6 +97,7 @@
 		019C1A37FFDDABCE7F000001 /* IOATADevConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IOATADevConfig.cpp; sourceTree = SOURCE_ROOT; };
 		019C1A38FFDDABCE7F000001 /* IOATADevice.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IOATADevice.cpp; sourceTree = SOURCE_ROOT; };
 		1F3C2F0B246244F9009625E3 /* kext.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = kext.xcconfig; sourceTree = "<group>"; };
+		1F64844F2568AAF700C27C5D /* IOMacOSTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOMacOSTypes.h; sourceTree = "<group>"; };
 		52C1FFB70DAD2D87006889B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52C1FFB80DAD2D87006889B7 /* IOATAFamily.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOATAFamily.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		B91829CD0197498808CA29FD /* IOATARegI386.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IOATARegI386.cpp; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		247142CAFF3F8F9811CA285C /* Family */ = {
 			isa = PBXGroup;
 			children = (
+				1F64844F2568AAF700C27C5D /* IOMacOSTypes.h */,
 				019C1A2AFFDDABCE7F000001 /* ATADeviceNub.h */,
 				019C1A2BFFDDABCE7F000001 /* IOATABusCommand.h */,
 				019C1A2CFFDDABCE7F000001 /* IOATABusInfo.h */,
@@ -193,6 +196,7 @@
 				52C1FF8E0DAD2D87006889B7 /* IOATADevice.h in Headers */,
 				52C1FF8F0DAD2D87006889B7 /* IOATATypes.h in Headers */,
 				52C1FF900DAD2D87006889B7 /* IOPCIATA.h in Headers */,
+				1F6484502568AAF700C27C5D /* IOMacOSTypes.h in Headers */,
 				52C1FF920DAD2D87006889B7 /* ATATimerEventSource.h in Headers */,
 				52C1FF930DAD2D87006889B7 /* ATADeviceNub.h in Headers */,
 				52C1FF940DAD2D87006889B7 /* IOATARegI386.h in Headers */,
