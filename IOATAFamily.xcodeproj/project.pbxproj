@@ -234,15 +234,15 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1220;
 			};
 			buildConfigurationList = A5EDE05D09660D8400EFBE07 /* Build configuration list for PBXProject "IOATAFamily" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* IOATAFamily */;
 			projectDirPath = "";
@@ -300,6 +300,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1F3C2F0B246244F9009625E3 /* kext.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;
+				CLANG_ANALYZER_DIVIDE_BY_ZERO = NO;
+				CLANG_ANALYZER_NULL_DEREFERENCE = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
@@ -320,6 +323,7 @@
 				PER_ARCH_CFLAGS_ppc = "-mno-string";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apple.iokit.IOATAFamily;
 				PRODUCT_NAME = IOATAFamily;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
