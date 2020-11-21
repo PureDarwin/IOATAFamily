@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F3C2F0C246244F9009625E3 /* kext.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1F3C2F0B246244F9009625E3 /* kext.xcconfig */; };
 		52C1FF890DAD2D87006889B7 /* IOATABusCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 019C1A2BFFDDABCE7F000001 /* IOATABusCommand.h */; settings = {ATTRIBUTES = (); }; };
 		52C1FF8A0DAD2D87006889B7 /* IOATABusInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 019C1A2CFFDDABCE7F000001 /* IOATABusInfo.h */; settings = {ATTRIBUTES = (); }; };
 		52C1FF8B0DAD2D87006889B7 /* IOATACommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 019C1A2DFFDDABCE7F000001 /* IOATACommand.h */; settings = {ATTRIBUTES = (); }; };
@@ -255,7 +254,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F3C2F0C246244F9009625E3 /* kext.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
