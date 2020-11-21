@@ -213,8 +213,6 @@
 				52C1FFA20DAD2D87006889B7 /* Resources */,
 				52C1FFA40DAD2D87006889B7 /* Sources */,
 				52C1FFB00DAD2D87006889B7 /* Frameworks */,
-				52C1FFB10DAD2D87006889B7 /* Rez */,
-				52C1FFB20DAD2D87006889B7 /* ShellScript */,
 				E6A80C380FB12E060037A814 /* CopyFiles */,
 			);
 			buildRules = (
@@ -263,16 +261,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXRezBuildPhase section */
-		52C1FFB10DAD2D87006889B7 /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXRezBuildPhase section */
-
 /* Begin PBXShellScriptBuildPhase section */
 		52C1FF870DAD2D87006889B7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -282,15 +270,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "script=\"${SYSTEM_DEVELOPER_DIR}/ProjectBuilder Extras/Kernel Extension Support/KEXTPreprocess\";\nif [ -x \"$script\" ]; then\n    . \"$script\"\nfi";
-		};
-		52C1FFB20DAD2D87006889B7 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "script=\"${SYSTEM_DEVELOPER_DIR}/ProjectBuilder Extras/Kernel Extension Support/KEXTPostprocess\";\nif [ -x \"$script\" ]; then\n    . \"$script\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
